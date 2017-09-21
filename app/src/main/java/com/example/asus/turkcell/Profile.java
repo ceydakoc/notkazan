@@ -68,7 +68,10 @@ public class Profile extends Fragment {
         });
         postList = (RecyclerView) view.findViewById(R.id.post_list2);
         postList.setHasFixedSize(true);
-        postList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(mLayoutManager);
 
 
 

@@ -33,6 +33,7 @@ public class Timeline extends Fragment {
     private RecyclerView postList;
     private ImageView add;
     private DatabaseReference database;
+    private RecyclerView gotop;
 
 
     private  static  final String TAG="Timeline";
@@ -46,13 +47,18 @@ public class Timeline extends Fragment {
         View view = inflater.inflate(R.layout.timeline,container,false);
         add = (ImageView) view.findViewById(R.id.img_add);
 
+
+
         database = FirebaseDatabase.getInstance().getReference().child("Images");
 
         postList = (RecyclerView) view.findViewById(R.id.post_list);
         postList.setHasFixedSize(true);
-        postList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-      //  username.setOnClickListener();
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(mLayoutManager);
+
 
 
 
@@ -80,15 +86,19 @@ public class Timeline extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
-               viewHolder.setName(model.getName());
-               viewHolder.setDesc(model.getDescription());
+                viewHolder.setName(model.getName());
+                viewHolder.setDesc(model.getDescription());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
                 viewHolder.setUserName(model.getUsername());
 
             }
         };
 
+        postList.smoothScrollToPosition(0);
         postList.setAdapter(firebaseRecyclerAdapter);
+
+
+
 
 
     }
