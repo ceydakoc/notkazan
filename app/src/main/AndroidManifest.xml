@@ -31,7 +31,8 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Storage"></activity>
+        <activity android:name=".Storage" />
+        <activity android:name=".FriendProfile"></activity>
     </application>
 
 </manifest>

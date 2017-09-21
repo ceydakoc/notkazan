@@ -3,6 +3,7 @@ package com.example.asus.turkcell;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,30 +33,32 @@ public class Profile extends Fragment {
     private DatabaseReference databaseUser;
     private FirebaseUser currentUser;
     private FirebaseAuth auth;
-    private DatabaseReference databasename;
+    private DatabaseReference ref;
 
-    private TextView username;
 
+    //private EditText ppname;
     private  static  final String TAG="Profile";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.profile,container,false);
-        username =(TextView)view.findViewById(R.id.name);
+        final View view = inflater.inflate(R.layout.profile,container,false);
 
 
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
 
-        databasename = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("name");
+
+        databaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("UserImages");
 
 
-        databasename.addValueEventListener(new ValueEventListener() {
+        ref=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("name");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                username.setText(dataSnapshot.getValue().toString());
+                TextView ppname = (TextView) view.findViewById(R.id.name);
+                ppname.setText(dataSnapshot.getValue().toString());
             }
 
             @Override
@@ -62,11 +66,11 @@ public class Profile extends Fragment {
 
             }
         });
-
-        databaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("UserImages");
         postList = (RecyclerView) view.findViewById(R.id.post_list2);
         postList.setHasFixedSize(true);
         postList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
 
         return  view;
 
@@ -87,6 +91,7 @@ public class Profile extends Fragment {
             protected void populateViewHolder(Profile.PostViewHolder viewHolder, Post model, int position) {
                 viewHolder.setName(model.getName());
                 viewHolder.setDesc(model.getDescription());
+                viewHolder.setUserName(model.getUsername());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
 
             }
@@ -111,6 +116,12 @@ public class Profile extends Fragment {
             TextView post_name = (TextView) view.findViewById(R.id.post_name);
             post_name.setText(name);
 
+        }
+
+        public void setUserName(String name)
+        {
+            TextView usernameText = (TextView) view.findViewById(R.id.user_name);
+            usernameText.setText(name);
         }
 
         public void setDesc(String desc){

@@ -32,6 +32,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     ProgressDialog pg ;
     FirebaseAuth mFirebaseauth;
     private DatabaseReference database;
+    private DatabaseReference databaseID;
 
 
     @Override
@@ -40,6 +41,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_sign_up);
 
         database = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseID = FirebaseDatabase.getInstance().getReference().child("ID");
 
         mFirebaseauth = FirebaseAuth.getInstance();
         pg = new ProgressDialog(this);
@@ -57,7 +59,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     public void Register(){
         final String name = Edittextname.getText().toString();
-        String email = Edittextemail.getText().toString();
+        final String email = Edittextemail.getText().toString();
         String password = Edittextpassword.getText().toString();
 
         mFirebaseauth.createUserWithEmailAndPassword(email, password)
@@ -78,6 +80,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             DatabaseReference current_user_db = database.child(user_id);
                             current_user_db.child("name").setValue(name);
                             current_user_db.child("image").setValue("default");
+                            current_user_db.child("email").setValue(email);
+                            databaseID.child(name).setValue(user_id);
 
                             Toast.makeText(SignUp.this, "Authentication success." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
