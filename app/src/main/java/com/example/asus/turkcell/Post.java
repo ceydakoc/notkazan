@@ -14,6 +14,12 @@ public class Post {
 
     }
 
+    public Post(String name, String description, String image) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }
