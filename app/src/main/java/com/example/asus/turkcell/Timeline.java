@@ -67,8 +67,8 @@ public class Timeline extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
-                viewHolder.setName(model.getName());
-                viewHolder.setDesc(model.getDescription());
+               viewHolder.setName(model.getName());
+               viewHolder.setDesc(model.getDescription());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
 
             }

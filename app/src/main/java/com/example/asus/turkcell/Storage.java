@@ -112,7 +112,9 @@ public class Storage extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                            databaseUserImages.child(newPost.getKey()).setValue(downloadUrl.toString());
+                            databaseUserImages.child(newPost.getKey()).child("name").setValue(name_value);
+                            databaseUserImages.child(newPost.getKey()).child("description").setValue(desc_value);
+                            databaseUserImages.child(newPost.getKey()).child("image").setValue(downloadUrl.toString());
 
                             newPost.child("name").setValue(name_value);
                             newPost.child("description").setValue(desc_value);
@@ -122,7 +124,7 @@ public class Storage extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Intent intent = new Intent(Storage.this, Timeline.class);
+                                        Intent intent = new Intent(Storage.this, Home.class);
                                         startActivity(intent);
                                     }
                                 }
