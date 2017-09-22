@@ -1,6 +1,7 @@
 package com.example.asus.turkcell;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.AuthResult;
 
+
 import java.util.Arrays;
 
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signIn;
     private  TextView inputEmail;
     private  TextView inputPassword;
+    private ProgressDialog progress;
 
     private static final int RC_SIGN_IN = 123;
     FirebaseDatabase dB;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progress = new ProgressDialog(this);
 
         Start();
         onClickButtonListener();
@@ -60,18 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(MainActivity.this,"OnClick",Toast.LENGTH_SHORT).show();
                         Intent ıntent = new Intent(MainActivity.this,SignUp.class );
                         startActivity(ıntent);
-
-                        /*
-                        Fragment frg = new Fragment();
-
-                        getFragmentManager().beginTransaction()
-                                .replace(R.id.container, frg)
-                                .addToBackStack(Home.class.getSimpleName())
-                                .commit();
-                        */
                     }
                 }
         );
@@ -116,16 +110,21 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progress.setMessage("Giriş Yapılıyor...");
+                progress.show();
+
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Email adresini gir", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    inputEmail.setError("E-posta adresinizi giriniz.");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    inputPassword.setError("Şifrenizi giriniz.");
                     return;
                 }
 
@@ -133,20 +132,27 @@ public class MainActivity extends AppCompatActivity {
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
+                                        progress.dismiss();
+                                        inputPassword.setError("Şifreniz en az 6 karakter içermelidir.");
                                     } else {
-                                        Toast.makeText(MainActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        progress.dismiss();
+                                        Toast.makeText(MainActivity.this, "Giriş yapılamadı. E-postanızı ve şifrenizi kontrol ediniz", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
+
+                                    Toast.makeText(MainActivity.this, "Giriş yapıldı.", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(MainActivity.this, Home.class);
                                     startActivity(intent);
+                                    progress.dismiss();
                                     finish();
+
                                 }
                             }
                         });

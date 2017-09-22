@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Post Name Goes Here"
+            android:text="Gönderi Başlığı"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Post Description Goes Here" />
+            android:text="Gönderi Açıklaması" />
 
     </LinearLayout>
 

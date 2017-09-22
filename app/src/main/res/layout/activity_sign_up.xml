@@ -25,11 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_name"
+
+            <EditText
+                android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:hint="Name" />
+                android:hint="Kullanıcı Adı"
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
@@ -43,7 +45,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="E-Posta"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -58,7 +60,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Şifre"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -67,10 +69,10 @@
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:text="Create Account"/>
+            android:text="Kaydol" />
 
         <TextView
             android:id="@+id/signin"
@@ -78,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="Already a member? Login"
+            android:text="Üyeliğiniz var mı? Giriş Yap"
             android:textSize="16dip" />
 
     </LinearLayout>

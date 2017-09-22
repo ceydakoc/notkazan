@@ -91,7 +91,7 @@ public class Storage extends AppCompatActivity {
 
     private void startPosting() {
 
-        progress.setMessage("Posting...");
+        progress.setMessage("Paylaşılıyor...");
         progress.show();
 
         final String name_value = imageName.getText().toString().trim();

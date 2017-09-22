@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="btnBrowse_Click"
-        android:text="Browse image to upload" />
+        android:text="Fotoğraf Seç" />
 
     <ImageView
         android:id="@+id/img_selected"
@@ -25,14 +25,14 @@
         android:id="@+id/txtImageName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Image name" />
+        android:hint="Başlık" />
 
     <EditText
         android:id="@+id/txtDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description"
+        android:hint="Açıklama"
         android:inputType="textPersonName" />
 
     <Button
@@ -40,5 +40,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="btnUpload_Click"
-        android:text="SUBMIT" />
+        android:text="Paylaş" />
 </LinearLayout>

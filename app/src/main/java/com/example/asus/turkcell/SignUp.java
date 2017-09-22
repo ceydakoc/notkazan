@@ -66,13 +66,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(SignUp.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             FirebaseAuthException e = (FirebaseAuthException) task.getException();
-                            Toast.makeText(SignUp.this, "Authentication failed = " + e.getMessage(),
+                            Toast.makeText(SignUp.this, "Kaydolma işlemi başarısız.",
                                     Toast.LENGTH_LONG).show();
                         } else {
 
@@ -83,7 +82,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             current_user_db.child("email").setValue(email);
                             databaseID.child(name).setValue(user_id);
 
-                            Toast.makeText(SignUp.this, "Authentication success." + task.getException(),
+                            Toast.makeText(SignUp.this, "Kaydolma işlemi başarılı." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
 
                             Intent ıntent = new Intent(SignUp.this,MainActivity.class );
@@ -104,7 +103,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         }
         if(v==login)
         {
-            //signin page
+            Intent i = new Intent(SignUp.this, MainActivity.class);
+            startActivity(i);
         }
 
     }

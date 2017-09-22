@@ -30,7 +30,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="E-posta"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -45,7 +45,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Şifre"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -56,7 +56,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:text="Login" />
+            android:text="GİRİŞ YAP" />
 
         <TextView
             android:id="@+id/gotosignup"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="No account yet? Create one"
+            android:text="Henüz bir hesabınız yok mu?"
             android:textSize="16sp" />
 
     </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,9 @@ public class Timeline extends Fragment {
     private ImageView add;
     private DatabaseReference database;
     private RecyclerView gotop;
+    //private FirebaseAuth auth;
+    //private FirebaseAuth.AuthStateListener authStateListener;
+
 
 
     private  static  final String TAG="Timeline";
@@ -78,6 +82,9 @@ public class Timeline extends Fragment {
     public void onStart() {
         super.onStart();
 
+    //    auth.addAuthStateListener(authStateListener);
+
+
         FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(
                 Post.class,
                 R.layout.timeline_row,
@@ -86,10 +93,26 @@ public class Timeline extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
+
+                final String key = getRef(position).getKey();
+
                 viewHolder.setName(model.getName());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
                 viewHolder.setUserName(model.getUsername());
+
+                final String postName = model.getName().toString();
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent i = new Intent(getActivity(), ShowPost.class);
+                        i.putExtra("key", key);
+                        startActivity(i);
+
+                       // Toast.makeText(getActivity(), key, Toast.LENGTH_LONG).show();
+                    }
+                });
 
             }
         };
